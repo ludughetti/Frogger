@@ -1,4 +1,5 @@
 using Player;
+using Timer;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utils;
@@ -9,25 +10,28 @@ namespace Game
 {
     public class GameManager : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private PlayerView playerView;
-        [SerializeField] private StartZoneView startZoneView;
-        [SerializeField] private EndZoneView endZoneView;
-        [SerializeField] private InputHandler inputHandler;
-
         [Header("Core Settings")] 
+        [SerializeField] private InputHandler inputHandler;
         [SerializeField] private Transform boundTopLeft;
         [SerializeField] private Transform boundBottomRight;
     
         [Header("Player Settings")]
+        [SerializeField] private PlayerView playerView;
         [SerializeField] private float moveSpeed = 5f;
         
         [Header("Zones Settings")]
+        [SerializeField] private StartZoneView startZoneView;
+        [SerializeField] private EndZoneView endZoneView;
         [SerializeField] private Transform spawnPosition;
+        
+        [Header("Timer Settings")]
+        [SerializeField] private TimerView timerView;
+        [SerializeField] private float levelStartTime = 60f;
     
         private PlayerPresenter _playerPresenter;
         private StartZonePresenter _startZonePresenter;
         private EndZonePresenter _endZonePresenter;
+        private TimerPresenter _timerPresenter;
 
         private void Start()
         {
@@ -36,6 +40,9 @@ namespace Game
             
             _endZonePresenter = new EndZonePresenter(endZoneView);
             _endZonePresenter.OnPlayerEntered += HandleWin;
+            
+            // Setup timer
+            _timerPresenter = new TimerPresenter(new TimerModel(levelStartTime), timerView);
             
             // Setup player
             var playerModel = new PlayerModel(Vector2.zero, boundTopLeft.position, boundBottomRight.position);
@@ -46,6 +53,7 @@ namespace Game
         private void Update()
         {
             _playerPresenter.Update();
+            _timerPresenter.Update(Time.deltaTime);
         }
 
         [ContextMenu("Respawn Player")]
