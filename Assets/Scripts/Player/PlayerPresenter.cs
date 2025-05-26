@@ -17,6 +17,7 @@ namespace Player
             _view = playerView;
             _moveSpeed = moveSpeed;
             
+            // Listen to inputHandler
             inputHandler.OnMove += OnMove;
         }
         
@@ -31,6 +32,12 @@ namespace Player
             UpdateMovement();
         }
 
+        public void SetSpawnPosition(Vector2 spawnPosition)
+        {
+            _model.SetPosition(spawnPosition);
+            _view.UpdatePosition(_model.Position);
+        }
+
         private void OnMove(Vector2 direction)
         {
             // Check for deadzone threshold
@@ -39,8 +46,17 @@ namespace Player
         
         private void UpdateMovement()
         {
+            // Calculate next position 
             var movement = _currentDirection * (_moveSpeed * Time.deltaTime);
-            _model.Move(movement);
+            var currentPosition = _model.Position;
+            var nextPosition = currentPosition + movement;
+            
+            // Clamp the next position so the player is within bounds
+            nextPosition.x = Mathf.Clamp(nextPosition.x, _model.BoundTopLeft.x, _model.BoundBottomRight.x);
+            nextPosition.y = Mathf.Clamp(nextPosition.y, _model.BoundBottomRight.y, _model.BoundTopLeft.y);
+
+            // Move
+            _model.Move(nextPosition - currentPosition);
             _view.UpdatePosition(_model.Position);
         }
     }
