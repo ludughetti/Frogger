@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Utils
@@ -12,6 +11,7 @@ namespace Utils
         private float _halfHeight;
         private float _topBound;
         private float _bottomBound;
+        private float _moveSpeed;
 
         private void Start()
         {
@@ -19,10 +19,11 @@ namespace Utils
                 _halfHeight = Camera.main.orthographicSize;
         }
 
-        public void Setup(Vector2 topLeftBound, Vector2 bottomRightBound)
+        public void Setup(Vector2 topLeftBound, Vector2 bottomRightBound, float playerMoveSpeed)
         {
             _topBound = topLeftBound.y;
             _bottomBound = bottomRightBound.y;
+            _moveSpeed = playerMoveSpeed;
         }
 
         public void Follow(float playerPosition)
@@ -33,7 +34,7 @@ namespace Utils
         private void LateUpdate()
         {
             var currentPosition = transform.position;
-            var desiredY = Mathf.Lerp(currentPosition.y, _targetY, 5f * Time.deltaTime);
+            var desiredY = Mathf.Lerp(currentPosition.y, _targetY, _moveSpeed * Time.deltaTime);
             var clampedY = Mathf.Clamp(desiredY, _bottomBound + _halfHeight, _topBound - _halfHeight);
 
             transform.position = new Vector3(FixedX, clampedY, FixedZ);

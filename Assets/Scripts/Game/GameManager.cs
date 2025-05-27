@@ -46,12 +46,13 @@ namespace Game
             _timerPresenter.OnTimerEnd += HandleLose;
             
             // Setup player
-            var playerModel = new PlayerModel(Vector2.zero, boundTopLeft.position, boundBottomRight.position);
+            var playerModel = new PlayerModel(Vector2.zero, boundTopLeft.position, boundBottomRight.position, 
+                playerView.GetPlayerHalfWidth(), playerView.GetPlayerHalfHeight());
             _playerPresenter = new PlayerPresenter(playerModel, playerView, inputHandler, moveSpeed);
             _playerPresenter.SetSpawnPosition(_startZonePresenter.GetPlayerSpawnPosition());
             
             // Setup camera
-            cameraHandler.Setup(boundTopLeft.position, boundBottomRight.position);
+            cameraHandler.Setup(boundTopLeft.position, boundBottomRight.position, moveSpeed);
             _playerPresenter.OnPlayerMoved += cameraHandler.Follow;
         }
 

@@ -55,8 +55,12 @@ namespace Player
             var nextPosition = currentPosition + movement;
             
             // Clamp the next position so the player is within bounds
-            nextPosition.x = Mathf.Clamp(nextPosition.x, _model.BoundTopLeft.x, _model.BoundBottomRight.x);
-            nextPosition.y = Mathf.Clamp(nextPosition.y, _model.BoundBottomRight.y, _model.BoundTopLeft.y);
+            nextPosition.x = Mathf.Clamp(nextPosition.x, 
+                _model.BoundTopLeft.x + _model.PlayerHalfWidth, 
+                _model.BoundBottomRight.x - _model.PlayerHalfWidth);
+            nextPosition.y = Mathf.Clamp(nextPosition.y, 
+                _model.BoundBottomRight.y + _model.PlayerHalfHeight, 
+                _model.BoundTopLeft.y - _model.PlayerHalfHeight);
 
             // Move
             _model.Move(nextPosition - currentPosition);
