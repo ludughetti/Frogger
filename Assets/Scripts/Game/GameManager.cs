@@ -1,7 +1,6 @@
 using Player;
 using Timer;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utils;
 using Zones.EndZone;
 using Zones.StartZone;
@@ -12,6 +11,7 @@ namespace Game
     {
         [Header("Core Settings")] 
         [SerializeField] private InputHandler inputHandler;
+        [SerializeField] private CameraHandler cameraHandler;
         [SerializeField] private Transform boundTopLeft;
         [SerializeField] private Transform boundBottomRight;
     
@@ -43,11 +43,16 @@ namespace Game
             
             // Setup timer
             _timerPresenter = new TimerPresenter(new TimerModel(levelStartTime), timerView);
+            _timerPresenter.OnTimerEnd += HandleLose;
             
             // Setup player
             var playerModel = new PlayerModel(Vector2.zero, boundTopLeft.position, boundBottomRight.position);
             _playerPresenter = new PlayerPresenter(playerModel, playerView, inputHandler, moveSpeed);
             _playerPresenter.SetSpawnPosition(_startZonePresenter.GetPlayerSpawnPosition());
+            
+            // Setup camera
+            cameraHandler.Setup(boundTopLeft.position, boundBottomRight.position);
+            _playerPresenter.OnPlayerMoved += cameraHandler.Follow;
         }
 
         private void Update()
@@ -66,6 +71,18 @@ namespace Game
         private void HandleWin()
         {
             Debug.Log("Win");
+        }
+
+        private void HandleLose()
+        {
+            Debug.Log("Lose");
+        }
+
+        private void Dispose()
+        {
+            _endZonePresenter.OnPlayerEntered -= HandleWin;
+            _timerPresenter.OnTimerEnd -= HandleLose;
+            _playerPresenter.OnPlayerMoved -= cameraHandler.Follow;
         }
     }
 }

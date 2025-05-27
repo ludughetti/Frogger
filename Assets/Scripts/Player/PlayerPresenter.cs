@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Utils;
 
@@ -10,6 +11,8 @@ namespace Player
         private float _moveSpeed;
 
         private Vector2 _currentDirection = Vector2.zero;
+
+        public Action<float> OnPlayerMoved;
 
         public PlayerPresenter(PlayerModel model, PlayerView playerView, InputHandler inputHandler, float moveSpeed)
         {
@@ -58,6 +61,9 @@ namespace Player
             // Move
             _model.Move(nextPosition - currentPosition);
             _view.UpdatePosition(_model.Position);
+            
+            // Invoke OnPlayerMoved event
+            OnPlayerMoved?.Invoke(_model.Position.y);
         }
     }
 }
