@@ -1,3 +1,4 @@
+using Cars.Spawner;
 using Player;
 using Timer;
 using UnityEngine;
@@ -14,32 +15,48 @@ namespace Game
         [SerializeField] private CameraHandler cameraHandler;
         [SerializeField] private Transform boundTopLeft;
         [SerializeField] private Transform boundBottomRight;
+        
+        [Header("Cars Settings")]
+        [SerializeField] private GameObject carPrefab;
     
+        [Header("Cars Spawner Settings")]
+        [SerializeField] private CarSpawnerView carSpawnerView;
+        [SerializeField] private Transform spawnContainer;
+        [SerializeField] private Transform carSpawnPosition;
+        [SerializeField] private float carSpawnRate;
+        [SerializeField] private float carSpeed;
+        
         [Header("Player Settings")]
         [SerializeField] private PlayerView playerView;
         [SerializeField] private float moveSpeed = 5f;
         
-        [Header("Zones Settings")]
-        [SerializeField] private StartZoneView startZoneView;
-        [SerializeField] private EndZoneView endZoneView;
-        [SerializeField] private Transform spawnPosition;
-        
         [Header("Timer Settings")]
         [SerializeField] private TimerView timerView;
         [SerializeField] private float levelStartTime = 60f;
+        
+        [Header("Zones Settings")]
+        [SerializeField] private StartZoneView startZoneView;
+        [SerializeField] private EndZoneView endZoneView;
+        [SerializeField] private Transform playerSpawnPosition;
     
+        private CarSpawnerPresenter _carSpawnerPresenter;
+        private EndZonePresenter _endZonePresenter;
         private PlayerPresenter _playerPresenter;
         private StartZonePresenter _startZonePresenter;
-        private EndZonePresenter _endZonePresenter;
         private TimerPresenter _timerPresenter;
 
         private void Start()
         {
             // Setup zones
-            _startZonePresenter = new StartZonePresenter(new StartZoneModel(spawnPosition.position), startZoneView);
+            _startZonePresenter = new StartZonePresenter(new StartZoneModel(playerSpawnPosition.position), startZoneView);
             
             _endZonePresenter = new EndZonePresenter(endZoneView);
             _endZonePresenter.OnPlayerEntered += HandleWin;
+            
+            // Setup cars
+            var carSpawnerModel = new CarSpawnerModel(carPrefab, spawnContainer, carSpawnPosition.position, 
+                carSpawnerView.transform.right.normalized, carSpawnRate, carSpeed);
+            _carSpawnerPresenter = new CarSpawnerPresenter(carSpawnerModel, carSpawnerView);
             
             // Setup timer
             _timerPresenter = new TimerPresenter(new TimerModel(levelStartTime), timerView);
@@ -59,6 +76,7 @@ namespace Game
         private void Update()
         {
             _playerPresenter.Update();
+            _carSpawnerPresenter.Update();
             _timerPresenter.Update(Time.deltaTime);
         }
 
