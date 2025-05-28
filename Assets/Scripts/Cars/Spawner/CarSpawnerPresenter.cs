@@ -14,7 +14,7 @@ namespace Cars.Spawner
         
         private List<CarPresenter> _activeCars = new();
         
-        public event Action<CarPresenter> OnPlayerCollision;
+        public event Action<CarSpawnerPresenter, CarPresenter> OnPlayerCollision;
 
         public CarSpawnerPresenter(CarSpawnerModel model, CarSpawnerView view)
         {
@@ -49,6 +49,7 @@ namespace Cars.Spawner
             var carPresenter = new CarPresenter(carModel, carView);
 
             carPresenter.OnRequestDestruction += HandleCarDestruction;
+            carPresenter.OnPlayerCollision += HandlePlayerCollision;
             _activeCars.Add(carPresenter);
         }
 
@@ -70,7 +71,7 @@ namespace Cars.Spawner
 
         private void HandlePlayerCollision(CarPresenter presenter)
         {
-            OnPlayerCollision?.Invoke(presenter);
+            OnPlayerCollision?.Invoke(this, presenter);
         }
     }
 }

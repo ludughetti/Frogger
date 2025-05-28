@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cars.Car;
 using Cars.Spawner;
 using Player;
@@ -21,11 +22,7 @@ namespace Game
         [SerializeField] private GameObject carPrefab;
     
         [Header("Cars Spawner Settings")]
-        [SerializeField] private CarSpawnerView carSpawnerView;
-        [SerializeField] private Transform spawnContainer;
-        [SerializeField] private Transform carSpawnPosition;
-        [SerializeField] private float carSpawnRate;
-        [SerializeField] private float carSpeed;
+        [SerializeField] private List<CarSpawnerView> carSpawnerView;
         
         [Header("Player Settings")]
         [SerializeField] private PlayerView playerView;
@@ -40,7 +37,7 @@ namespace Game
         [SerializeField] private EndZoneView endZoneView;
         [SerializeField] private Transform playerSpawnPosition;
     
-        private CarSpawnerPresenter _carSpawnerPresenter;
+        private List<CarSpawnerPresenter> _carSpawnerPresenters = new ();
         private EndZonePresenter _endZonePresenter;
         private PlayerPresenter _playerPresenter;
         private StartZonePresenter _startZonePresenter;
@@ -54,21 +51,25 @@ namespace Game
             _endZonePresenter = new EndZonePresenter(endZoneView);
             _endZonePresenter.OnPlayerEntered += HandleWin;
             
-            // Setup cars
-            var carSpawnerModel = new CarSpawnerModel(carPrefab, spawnContainer, carSpawnPosition.position, 
-                carSpawnerView.transform.right.normalized, carSpawnRate, carSpeed);
-            _carSpawnerPresenter = new CarSpawnerPresenter(carSpawnerModel, carSpawnerView);
-            _carSpawnerPresenter.OnPlayerCollision += HandlePlayerCollision;
+            // Setup car spawners
+            foreach (var spawnerView in carSpawnerView)
+            {
+                var carSpawnerModel = new CarSpawnerModel(spawnerView.SpawnerData, spawnerView.SpawnContainer,
+                    spawnerView.transform.position, spawnerView.transform.right);
+                var carSpawnerPresenter = new CarSpawnerPresenter(carSpawnerModel, spawnerView);
+                carSpawnerPresenter.OnPlayerCollision += HandlePlayerCollision;
+                
+                _carSpawnerPresenters.Add(carSpawnerPresenter);
+            }
             
             // Setup timer
             _timerPresenter = new TimerPresenter(new TimerModel(levelStartTime), timerView);
             _timerPresenter.OnTimerEnd += HandleLose;
             
             // Setup player
-            var playerModel = new PlayerModel(Vector2.zero, boundTopLeft.position, boundBottomRight.position, 
+            var playerModel = new PlayerModel(_startZonePresenter.GetPlayerSpawnPosition(), boundTopLeft.position, boundBottomRight.position, 
                 playerView.GetPlayerHalfWidth(), playerView.GetPlayerHalfHeight());
             _playerPresenter = new PlayerPresenter(playerModel, playerView, inputHandler, moveSpeed);
-            _playerPresenter.SetSpawnPosition(_startZonePresenter.GetPlayerSpawnPosition());
             
             // Setup camera
             cameraHandler.Setup(boundTopLeft.position, boundBottomRight.position, moveSpeed);
@@ -77,16 +78,11 @@ namespace Game
 
         private void Update()
         {
-            _playerPresenter.Update();
-            _carSpawnerPresenter.Update();
             _timerPresenter.Update(Time.deltaTime);
-        }
-
-        [ContextMenu("Respawn Player")]
-        private void HandlePlayerRespawn()
-        {
-            Debug.Log("Player Respawn");
-            _playerPresenter.SetSpawnPosition(_startZonePresenter.GetPlayerSpawnPosition());
+            _playerPresenter.Update();
+            
+            foreach (var carSpawnerPresenter in _carSpawnerPresenters)
+                carSpawnerPresenter.Update();
         }
 
         private void HandleWin()
@@ -105,7 +101,9 @@ namespace Game
             _endZonePresenter.OnPlayerEntered -= HandleWin;
             _timerPresenter.OnTimerEnd -= HandleLose;
             _playerPresenter.OnPlayerMoved -= cameraHandler.Follow;
-            _carSpawnerPresenter.OnPlayerCollision -= HandlePlayerCollision;
+            
+            foreach (var carSpawnerPresenter in _carSpawnerPresenters)
+                carSpawnerPresenter.OnPlayerCollision -= HandlePlayerCollision;
             
             // Dispose
             _endZonePresenter.Dispose();
@@ -113,11 +111,14 @@ namespace Game
             
         }
 
-        private void HandlePlayerCollision(CarPresenter presenter)
+        private void HandlePlayerCollision(CarSpawnerPresenter spawnerPresenter, CarPresenter presenter)
         {
+            // Destroy car
+            spawnerPresenter.HandleCarDestruction(presenter);
+            
+            // Respawn player
             _playerPresenter.RespawnPlayer();
             _startZonePresenter.PlayOnPlayerRespawn();
-            _carSpawnerPresenter.HandleCarDestruction(presenter);
         }
     }
 }

@@ -11,15 +11,15 @@ namespace Cars.Spawner
         public float SpawnRate { get; private set; }
         public float Speed { get; private set; }
 
-        public CarSpawnerModel(GameObject carPrefab, Transform spawnContainer, Vector2 spawnPosition, 
-            Vector2 moveDirection, float spawnRate, float carSpeed)
+        public CarSpawnerModel(CarSpawnerData spawnerData, Transform spawnContainer, 
+            Vector2 spawnPosition, Vector2 moveDirection)
         {
-            CarPrefab = carPrefab;
+            CarPrefab = spawnerData.Prefab;
             SpawnContainer = spawnContainer;
             SpawnPosition = spawnPosition;
             MoveDirection = moveDirection.normalized;
-            SpawnRate = spawnRate;
-            Speed = carSpeed;
+            SpawnRate = spawnerData.SpawnRate;
+            Speed = spawnerData.Speed;
         }
     }
 }
