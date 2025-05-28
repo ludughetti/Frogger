@@ -41,6 +41,12 @@ namespace Player
             _view.UpdatePosition(_model.Position);
         }
 
+        public void RespawnPlayer()
+        {
+            _model.SetPosition(_model.StartPosition);
+            _view.UpdatePosition(_model.Position);
+        }
+
         private void OnMove(Vector2 direction)
         {
             // Check for deadzone threshold

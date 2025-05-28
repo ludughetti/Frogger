@@ -1,3 +1,4 @@
+using Cars.Car;
 using Cars.Spawner;
 using Player;
 using Timer;
@@ -57,6 +58,7 @@ namespace Game
             var carSpawnerModel = new CarSpawnerModel(carPrefab, spawnContainer, carSpawnPosition.position, 
                 carSpawnerView.transform.right.normalized, carSpawnRate, carSpeed);
             _carSpawnerPresenter = new CarSpawnerPresenter(carSpawnerModel, carSpawnerView);
+            _carSpawnerPresenter.OnPlayerCollision += HandlePlayerCollision;
             
             // Setup timer
             _timerPresenter = new TimerPresenter(new TimerModel(levelStartTime), timerView);
@@ -99,9 +101,23 @@ namespace Game
 
         private void Dispose()
         {
+            // Unsuscribe
             _endZonePresenter.OnPlayerEntered -= HandleWin;
             _timerPresenter.OnTimerEnd -= HandleLose;
             _playerPresenter.OnPlayerMoved -= cameraHandler.Follow;
+            _carSpawnerPresenter.OnPlayerCollision -= HandlePlayerCollision;
+            
+            // Dispose
+            _endZonePresenter.Dispose();
+            _playerPresenter.Dispose(inputHandler);
+            
+        }
+
+        private void HandlePlayerCollision(CarPresenter presenter)
+        {
+            _playerPresenter.RespawnPlayer();
+            _startZonePresenter.PlayOnPlayerRespawn();
+            _carSpawnerPresenter.HandleCarDestruction(presenter);
         }
     }
 }

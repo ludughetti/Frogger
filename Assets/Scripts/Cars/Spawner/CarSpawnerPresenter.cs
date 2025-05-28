@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Cars.Car;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Cars.Spawner
 {
@@ -11,6 +13,8 @@ namespace Cars.Spawner
         private float _spawnTimer;
         
         private List<CarPresenter> _activeCars = new();
+        
+        public event Action<CarPresenter> OnPlayerCollision;
 
         public CarSpawnerPresenter(CarSpawnerModel model, CarSpawnerView view)
         {
@@ -56,12 +60,17 @@ namespace Cars.Spawner
             }
         }
 
-        private void HandleCarDestruction(CarPresenter presenter)
+        public void HandleCarDestruction(CarPresenter presenter)
         {
             presenter.OnRequestDestruction -= HandleCarDestruction;
             presenter.Dispose();
             
             _activeCars.Remove(presenter);
+        }
+
+        private void HandlePlayerCollision(CarPresenter presenter)
+        {
+            OnPlayerCollision?.Invoke(presenter);
         }
     }
 }

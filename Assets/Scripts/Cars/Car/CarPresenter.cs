@@ -10,6 +10,7 @@ namespace Cars.Car
         private CarView _view;
         
         public event Action<CarPresenter> OnRequestDestruction;
+        public event Action<CarPresenter> OnPlayerCollision;
 
         public CarPresenter(CarModel model, CarView view)
         {
@@ -17,6 +18,7 @@ namespace Cars.Car
             _view = view;
             
             _view.OnEnteredDestructionZone += HandleDestructionRequest;
+            _view.OnPlayerCollision += HandlePlayerCollision;
             _view.UpdatePosition(_model.Position);
         }
 
@@ -34,13 +36,22 @@ namespace Cars.Car
 
         public void Dispose()
         {
+            // Unsuscribe
             _view.OnEnteredDestructionZone -= HandleDestructionRequest;
+            _view.OnPlayerCollision -= HandlePlayerCollision;
+            
+            // Destroy view
             Object.Destroy(_view.gameObject);
         }
         
         private void HandleDestructionRequest()
         {
             OnRequestDestruction?.Invoke(this);
+        }
+
+        private void HandlePlayerCollision()
+        {
+            OnPlayerCollision?.Invoke(this);
         }
     }
 }

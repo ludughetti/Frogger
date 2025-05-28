@@ -4,6 +4,7 @@ namespace Player
 {
     public class PlayerModel
     {
+        public Vector2 StartPosition { get; private set; }
         public Vector2 Position { get; private set; }
         public Vector2 BoundTopLeft { get; private set; }
         public Vector2 BoundBottomRight { get; private set; }
@@ -13,7 +14,8 @@ namespace Player
         public PlayerModel(Vector2 position, Vector2 boundTopLeft, Vector2 boundBottomRight, 
             float playerHalfWidth, float playerHalfHeight)
         {
-            Position = position;
+            StartPosition = position;
+            Position = StartPosition;
             BoundTopLeft = boundTopLeft;
             BoundBottomRight = boundBottomRight;
             PlayerHalfWidth = playerHalfWidth;
