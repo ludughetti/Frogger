@@ -17,7 +17,7 @@ namespace Zones.EndZone
 
         private void HandlePlayerEntered()
         {
-            Debug.Log("Player won!");
+            OnPlayerEntered?.Invoke();
         }
 
         public void Dispose()

@@ -1,0 +1,22 @@
+using System;
+using UnityEngine;
+
+namespace UI.MainMenu
+{
+    public class MainMenuManager : MonoBehaviour
+    {
+        [SerializeField] private MainMenuView view;
+
+        private MainMenuPresenter _presenter;
+        
+        private void Start()
+        {
+            _presenter = new MainMenuPresenter(view);
+        }
+
+        private void OnDestroy()
+        {
+            _presenter.Dispose();
+        }
+    }
+}

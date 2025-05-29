@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Cars.Car;
 using Cars.Spawner;
 using Player;
 using Timer;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 using Zones.EndZone;
 using Zones.StartZone;
@@ -85,18 +87,27 @@ namespace Game
                 carSpawnerPresenter.Update();
         }
 
+        private void OnDestroy()
+        {
+            Dispose();
+        }
+
         private void HandleWin()
         {
-            Debug.Log("Win");
+            EndGameState.ResultMessage = "You win!";
+            SceneManager.LoadScene("EndGame");
         }
 
         private void HandleLose()
         {
-            Debug.Log("Lose");
+            EndGameState.ResultMessage = "You lose!";
+            SceneManager.LoadScene("EndGame");
         }
 
         private void Dispose()
         {
+            Debug.Log("Disposing game manager...");
+            
             // Unsuscribe
             _endZonePresenter.OnPlayerEntered -= HandleWin;
             _timerPresenter.OnTimerEnd -= HandleLose;
@@ -109,6 +120,7 @@ namespace Game
             _endZonePresenter.Dispose();
             _playerPresenter.Dispose(inputHandler);
             
+            Debug.Log("Game manager was disposed.");
         }
 
         private void HandlePlayerCollision(CarSpawnerPresenter spawnerPresenter, CarPresenter presenter)
