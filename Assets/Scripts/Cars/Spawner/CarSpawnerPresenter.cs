@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cars.Car;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Cars.Spawner
 {
@@ -34,7 +35,7 @@ namespace Cars.Spawner
             if (!(_spawnTimer <= 0f)) return;
             
             SpawnCar();
-            _spawnTimer = _model.SpawnRate;
+            _spawnTimer = Random.Range(_model.SpawnRate - 0.5f, _model.SpawnRate + 0.5f);
         }
 
         private void SpawnCar()
