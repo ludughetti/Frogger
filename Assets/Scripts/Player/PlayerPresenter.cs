@@ -51,6 +51,9 @@ namespace Player
         {
             // Check for deadzone threshold
             _currentDirection = direction.sqrMagnitude > 0.01f ? direction.normalized : Vector2.zero; 
+            
+            // Update animation values
+            _view.SetAnimationValues(_currentDirection, _currentDirection != Vector2.zero);
         }
         
         private void UpdateMovement()

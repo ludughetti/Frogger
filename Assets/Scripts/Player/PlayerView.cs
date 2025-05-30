@@ -6,6 +6,14 @@ namespace Player
     public class PlayerView : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Animator animator;
+
+        public void SetAnimationValues(Vector2 direction, bool isMoving)
+        {
+            animator.SetBool("IsMoving", isMoving);
+            animator.SetFloat("MoveX", direction.x);
+            animator.SetFloat("MoveY", direction.y);
+        }
 
         public float GetPlayerHalfHeight()
         {
