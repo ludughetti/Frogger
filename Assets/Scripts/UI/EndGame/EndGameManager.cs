@@ -13,8 +13,9 @@ namespace UI.EndGame
         {
             // Get the result message from a global state or static class
             var resultMessage = EndGameState.ResultMessage ?? "Unknown Result";
+            var resultPlayerWon = EndGameState.PlayerWon;
 
-            var model = new EndGameModel(resultMessage);
+            var model = new EndGameModel(resultMessage, resultPlayerWon);
             _presenter = new EndGamePresenter(model, endGameView);
         }
 

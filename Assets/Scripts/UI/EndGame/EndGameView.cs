@@ -9,13 +9,21 @@ namespace UI.EndGame
     {
         [SerializeField] private TMP_Text resultText;
         [SerializeField] private Button mainMenuButton;
+        [SerializeField] private AudioSource sfxSource;
+        
+        [Header("Sounds")]
+        [SerializeField] private AudioClip playerWin;
+        [SerializeField] private AudioClip playerLose;
 
         public Action OnReturnToMainMenu;
 
-        public void Setup(string message)
+        public void Setup(string message, bool playerWon)
         {
             resultText.text = message;
             mainMenuButton.onClick.AddListener(TriggerReturnToMainMenu);
+            
+            // Trigger sound
+            PlayEndGameSound(playerWon);
         }
 
         private void TriggerReturnToMainMenu()
@@ -26,6 +34,11 @@ namespace UI.EndGame
         public void Dispose()
         {
             mainMenuButton.onClick.RemoveAllListeners();
+        }
+
+        private void PlayEndGameSound(bool playerWon)
+        {
+            sfxSource.PlayOneShot(playerWon ? playerWin : playerLose);
         }
     }
 }

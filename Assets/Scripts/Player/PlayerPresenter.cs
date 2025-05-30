@@ -54,6 +54,9 @@ namespace Player
             
             // Update animation values
             _view.SetAnimationValues(_currentDirection, _currentDirection != Vector2.zero);
+            
+            // Update SFX
+            _view.HandlePlayerWalkSFX(_currentDirection != Vector2.zero);
         }
         
         private void UpdateMovement()

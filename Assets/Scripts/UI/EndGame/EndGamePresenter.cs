@@ -12,7 +12,7 @@ namespace UI.EndGame
             _model = model;
             _view = view;
 
-            _view.Setup(_model.ResultMessage);
+            _view.Setup(_model.ResultMessage, _model.PlayerWon);
             _view.OnReturnToMainMenu += HandleMainMenu;
         }
 
