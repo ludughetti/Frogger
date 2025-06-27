@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Cars.Car
 {
-    public class CarView : MonoBehaviour
+    public class CarView : MonoBehaviour, ICarView
     {
         public event Action OnEnteredDestructionZone;
         public event Action OnPlayerCollision;
@@ -11,6 +11,11 @@ namespace Cars.Car
         public void UpdatePosition(Vector2 position)
         {
             transform.position = position;
+        }
+        
+        public void Destroy()
+        {
+            UnityEngine.Object.Destroy(this.gameObject);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

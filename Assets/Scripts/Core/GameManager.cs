@@ -86,7 +86,7 @@ namespace Core
             _playerPresenter.Update();
             
             foreach (var carSpawnerPresenter in _carSpawnerPresenters)
-                carSpawnerPresenter.Update();
+                carSpawnerPresenter.Update(Time.deltaTime);
         }
 
         private void OnDestroy()
