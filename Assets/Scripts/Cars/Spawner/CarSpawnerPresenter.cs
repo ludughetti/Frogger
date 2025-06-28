@@ -24,11 +24,11 @@ namespace Cars.Spawner
             _spawnTimer = _model.SpawnRate;
         }
 
-        public void Update()
+        public void Update(float deltaTime)
         {
             // Update timer and move active cars
-            _spawnTimer -= Time.deltaTime;
-            UpdateCars();
+            _spawnTimer -= deltaTime;
+            UpdateCars(deltaTime);
             
             // If spawn cooldown is not over, early return.
             // Else, spawn new car.
@@ -54,11 +54,11 @@ namespace Cars.Spawner
             _activeCars.Add(carPresenter);
         }
 
-        private void UpdateCars()
+        private void UpdateCars(float deltaTime)
         {
             foreach (var carPresenter in _activeCars)
             {
-                carPresenter.UpdateMovement();
+                carPresenter.UpdateMovement(deltaTime);
             }
         }
 
