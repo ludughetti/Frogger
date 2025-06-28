@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Tests.EditMode.Cars.Car.Mocked
 {
-    public class CarViewMocked : ICarView
+    public class CarViewMocked : MonoBehaviour, ICarView
     {
         public Vector2 LastPosition { get; private set; }
         public bool UpdatePositionCalled { get; private set; }
@@ -17,6 +17,11 @@ namespace Tests.EditMode.Cars.Car.Mocked
         {
             UpdatePositionCalled = true;
             LastPosition = position;
+        }
+        
+        public void ResetFlags()
+        {
+            UpdatePositionCalled = false;
         }
 
         public void Destroy()

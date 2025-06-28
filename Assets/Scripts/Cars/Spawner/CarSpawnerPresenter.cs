@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Cars.Car;
+using Cars.Spawner.Factory;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Cars.Spawner
@@ -10,17 +10,17 @@ namespace Cars.Spawner
     public class CarSpawnerPresenter
     {
         private readonly CarSpawnerModel _model;
-        private readonly CarSpawnerView _view;
+        private readonly ICarFactory _carFactory;
         private float _spawnTimer;
         
         private List<CarPresenter> _activeCars = new();
         
         public event Action<CarSpawnerPresenter, CarPresenter> OnPlayerCollision;
 
-        public CarSpawnerPresenter(CarSpawnerModel model, CarSpawnerView view)
+        public CarSpawnerPresenter(CarSpawnerModel model, ICarFactory carFactory)
         {
             _model = model;
-            _view = view;
+            _carFactory = carFactory;
             _spawnTimer = _model.SpawnRate;
         }
 
@@ -32,7 +32,7 @@ namespace Cars.Spawner
             
             // If spawn cooldown is not over, early return.
             // Else, spawn new car.
-            if (!(_spawnTimer <= 0f)) return;
+            if (_spawnTimer > 0f) return;
             
             SpawnCar();
             _spawnTimer = Random.Range(_model.SpawnRate - 0.5f, _model.SpawnRate + 0.5f);
@@ -40,9 +40,8 @@ namespace Cars.Spawner
 
         private void SpawnCar()
         {
-            var car = Object.Instantiate(_model.CarPrefab, _model.SpawnPosition, 
-                Quaternion.identity, _model.SpawnContainer);
-            if (!car.TryGetComponent(out CarView carView)) return;
+            var car = _carFactory.Spawn(_model.SpawnPosition, _model.SpawnContainer);
+            if (!car.TryGetComponent(out ICarView carView)) return;
             
             Debug.Log("Spawning car");
             

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Cars.Car;
 using Cars.Spawner;
+using Cars.Spawner.Factory.FactoryImpl;
 using Player;
 using Timer;
 using UnityEngine;
@@ -18,9 +19,6 @@ namespace Core
         [SerializeField] private CameraHandler cameraHandler;
         [SerializeField] private Transform boundTopLeft;
         [SerializeField] private Transform boundBottomRight;
-        
-        [Header("Cars Settings")]
-        [SerializeField] private GameObject carPrefab;
     
         [Header("Cars Spawner Settings")]
         [SerializeField] private List<CarSpawnerView> carSpawnerView;
@@ -60,7 +58,8 @@ namespace Core
             {
                 var carSpawnerModel = new CarSpawnerModel(spawnerView.SpawnerData, spawnerView.SpawnContainer,
                     spawnerView.transform.position, spawnerView.transform.right);
-                var carSpawnerPresenter = new CarSpawnerPresenter(carSpawnerModel, spawnerView);
+                var carFactory = new DefaultCarFactory(carSpawnerModel.CarPrefab);
+                var carSpawnerPresenter = new CarSpawnerPresenter(carSpawnerModel, carFactory);
                 carSpawnerPresenter.OnPlayerCollision += HandlePlayerCollision;
                 
                 _carSpawnerPresenters.Add(carSpawnerPresenter);
