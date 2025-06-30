@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Timer
 {
-    public class TimerView : MonoBehaviour
+    public class TimerView : MonoBehaviour, ITimerView
     {
         [SerializeField] private TMP_Text timerText;
         

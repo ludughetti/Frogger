@@ -6,11 +6,11 @@ namespace Timer
     public class TimerPresenter
     {
         private TimerModel _model;
-        private TimerView _view;
+        private ITimerView _view;
 
         public Action OnTimerEnd;
         
-        public TimerPresenter(TimerModel model, TimerView view)
+        public TimerPresenter(TimerModel model, ITimerView view)
         {
             _model = model;
             _view = view;
