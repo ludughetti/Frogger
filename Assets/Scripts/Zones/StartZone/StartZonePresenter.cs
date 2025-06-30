@@ -4,10 +4,10 @@ namespace Zones.StartZone
 {
     public class StartZonePresenter
     {
-        private StartZoneView _view;
-        private StartZoneModel _model;
+        private readonly IStartZoneView _view;
+        private readonly StartZoneModel _model;
 
-        public StartZonePresenter(StartZoneModel model, StartZoneView view)
+        public StartZonePresenter(StartZoneModel model, IStartZoneView view)
         {
             _view = view;
             _model = model;
@@ -19,11 +19,6 @@ namespace Zones.StartZone
         public Vector2 GetPlayerSpawnPosition()
         {
             return _model.SpawnPosition;
-        }
-
-        public void PlayOnPlayerRespawn()
-        {
-            _view.PlayOnRespawn();
         }
     }
 }

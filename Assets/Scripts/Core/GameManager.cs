@@ -137,7 +137,6 @@ namespace Core
             
             // Respawn player
             _playerPresenter.RespawnPlayer();
-            _startZonePresenter.PlayOnPlayerRespawn();
         }
     }
 }
