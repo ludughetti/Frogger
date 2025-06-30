@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace UI.EndGame
 {
-    public class EndGameView : MonoBehaviour
+    public class EndGameView : MonoBehaviour, IEndGameView
     {
         [SerializeField] private TMP_Text resultText;
         [SerializeField] private Button mainMenuButton;
@@ -14,8 +14,8 @@ namespace UI.EndGame
         [Header("Sounds")]
         [SerializeField] private AudioClip playerWin;
         [SerializeField] private AudioClip playerLose;
-
-        public Action OnReturnToMainMenu;
+        
+        public event Action OnReturnToMainMenu;
 
         public void Setup(string message, bool playerWon)
         {
@@ -25,7 +25,7 @@ namespace UI.EndGame
             // Trigger sound
             PlayEndGameSound(playerWon);
         }
-
+        
         private void TriggerReturnToMainMenu()
         {
             OnReturnToMainMenu?.Invoke();

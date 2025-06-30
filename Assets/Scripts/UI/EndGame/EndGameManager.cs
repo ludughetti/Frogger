@@ -8,6 +8,7 @@ namespace UI.EndGame
         [SerializeField] private EndGameView endGameView;
 
         private EndGamePresenter _presenter;
+        private ISceneLoader _sceneLoader;
 
         private void Start()
         {
@@ -16,7 +17,7 @@ namespace UI.EndGame
             var resultPlayerWon = EndGameState.PlayerWon;
 
             var model = new EndGameModel(resultMessage, resultPlayerWon);
-            _presenter = new EndGamePresenter(model, endGameView);
+            _presenter = new EndGamePresenter(model, endGameView, new SceneLoader());
         }
 
         private void OnDestroy()
