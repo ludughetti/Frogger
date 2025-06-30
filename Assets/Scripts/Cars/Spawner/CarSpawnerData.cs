@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace Cars.Spawner
 {
-    public class CarSpawnerData : MonoBehaviour, ICarSpawnerData
+    [CreateAssetMenu(fileName = "CarSpawnerData", menuName = "Scriptable Objects/CarSpawnerData")]
+    public class CarSpawnerData : ScriptableObject, ICarSpawnerData
     {
         [SerializeField] private GameObject prefab;
         [SerializeField] private float spawnRate;
@@ -11,5 +12,13 @@ namespace Cars.Spawner
         public GameObject Prefab => prefab;
         public float SpawnRate => spawnRate;
         public float Speed => speed;
+
+        // Setter for testing
+        public void SetData(GameObject testPrefab, float testSpawnRate, float testSpeed)
+        {
+            prefab = testPrefab;
+            spawnRate = testSpawnRate;
+            speed = testSpeed;
+        }
     }
 }

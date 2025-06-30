@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6684760506368374153}
   - component: {fileID: 2321464983195263849}
-  - component: {fileID: 3872864798316547264}
   m_Layer: 0
   m_Name: CarSpawner
   m_TagString: Untagged
@@ -47,23 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705e353df19318546b963371b8845e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnerData: {fileID: 3872864798316547264}
+  spawnerData: {fileID: 0}
   spawnContainer: {fileID: 5996146564743707205}
---- !u!114 &3872864798316547264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1854632118477421896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5feb2420cc4c944ea608fe2f17a32f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 8044072170602619768, guid: c00db2df576e2c04aac682dc6e45d082, type: 3}
-  spawnRate: 2
-  speed: 4
 --- !u!1 &2808477572232844472
 GameObject:
   m_ObjectHideFlags: 0

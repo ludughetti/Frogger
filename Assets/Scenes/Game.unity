@@ -1464,6 +1464,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2321464983195263849, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
+      propertyPath: spawnerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 068c59d41ad2e7b4f86c0fef1e7f3211, type: 2}
     - target: {fileID: 3872864798316547264, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
       propertyPath: speed
       value: 3
@@ -20454,6 +20458,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2321464983195263849, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
+      propertyPath: spawnerData
+      value: 
+      objectReference: {fileID: 11400000, guid: a1caa652e27a07a45864fb31e3f35b2f, type: 2}
     - target: {fileID: 3872864798316547264, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
       propertyPath: speed
       value: 3
@@ -23136,6 +23144,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2321464983195263849, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
+      propertyPath: spawnerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 37012d1df9f91c94b9a7a723a7c1b9e8, type: 2}
     - target: {fileID: 3872864798316547264, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
       propertyPath: speed
       value: 3
@@ -24111,6 +24123,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2321464983195263849, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
+      propertyPath: spawnerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 86deae71873a2614ea6fcdee7b792f05, type: 2}
     - target: {fileID: 3872864798316547264, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
       propertyPath: speed
       value: 5
@@ -25539,7 +25555,6 @@ MonoBehaviour:
   cameraHandler: {fileID: 2012144877}
   boundTopLeft: {fileID: 1989019576}
   boundBottomRight: {fileID: 197561292}
-  carPrefab: {fileID: 8044072170602619768, guid: c00db2df576e2c04aac682dc6e45d082, type: 3}
   carSpawnerView:
   - {fileID: 311891683}
   - {fileID: 1149779380}
@@ -40442,6 +40457,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2321464983195263849, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
+      propertyPath: spawnerData
+      value: 
+      objectReference: {fileID: 11400000, guid: a31955bb505b71449b5385242ae6384e, type: 2}
     - target: {fileID: 3872864798316547264, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
       propertyPath: speed
       value: 4
@@ -50690,6 +50709,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CarSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2321464983195263849, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
+      propertyPath: spawnerData
+      value: 
+      objectReference: {fileID: 11400000, guid: f57ab0bcd7f06f14a9f4985775e77605, type: 2}
     - target: {fileID: 3872864798316547264, guid: 7b15a6c3e2a59774fa3e76484b18af46, type: 3}
       propertyPath: prefab
       value: 

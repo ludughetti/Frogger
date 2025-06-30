@@ -9,5 +9,12 @@ namespace Cars.Spawner
         
         public ICarSpawnerData SpawnerData => spawnerData;
         public Transform SpawnContainer => spawnContainer;
+
+        // Setter for testing
+        public void SetData(CarSpawnerData testSpawnerData, Transform testSpawnContainer)
+        {
+            spawnerData = testSpawnerData;
+            spawnContainer = testSpawnContainer;
+        }
     }
 }
