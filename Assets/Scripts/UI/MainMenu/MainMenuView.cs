@@ -4,14 +4,14 @@ using UnityEngine.UI;
 
 namespace UI.MainMenu
 {
-    public class MainMenuView : MonoBehaviour
+    public class MainMenuView : MonoBehaviour, IMainMenuView
     {
         [Header("UI References")]
         [SerializeField] private Button playButton;
         [SerializeField] private Button quitButton;
 
-        public Action OnPlayButtonClicked;
-        public Action OnQuitButtonClicked;
+        public event Action OnPlayButtonClicked;
+        public event Action OnQuitButtonClicked;
 
         public void Setup()
         {

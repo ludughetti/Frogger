@@ -1,18 +1,22 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using Utils;
 
 namespace UI.MainMenu
 {
     public class MainMenuPresenter
     {
-        private readonly MainMenuView _view;
+        private readonly IMainMenuView _view;
+        private readonly ISceneLoader _sceneLoader;
+        private readonly IApplicationHandler _applicationHandler;
 
-        public MainMenuPresenter(MainMenuView view)
+        public MainMenuPresenter(IMainMenuView view, ISceneLoader sceneLoader, IApplicationHandler applicationHandler)
         {
             _view = view;
             _view.Setup();
             _view.OnPlayButtonClicked += HandlePlay;
             _view.OnQuitButtonClicked += HandleQuit;
+            
+            _sceneLoader = sceneLoader;
+            _applicationHandler = applicationHandler;
         }
 
         public void Dispose()
@@ -24,15 +28,12 @@ namespace UI.MainMenu
 
         private void HandlePlay()
         {
-            SceneManager.LoadScene("Game");
+            _sceneLoader.LoadScene("Game");
         }
 
         private void HandleQuit()
         {
-            Application.Quit();
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
+            _applicationHandler.Quit();
         }
     }
 }

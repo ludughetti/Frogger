@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Utils;
 
 namespace UI.MainMenu
 {
@@ -11,7 +12,7 @@ namespace UI.MainMenu
         
         private void Start()
         {
-            _presenter = new MainMenuPresenter(view);
+            _presenter = new MainMenuPresenter(view, new SceneLoader(), new ApplicationHandler());
         }
 
         private void OnDestroy()
