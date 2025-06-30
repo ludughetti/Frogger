@@ -41,7 +41,7 @@ namespace Player
         
         public void Destroy()
         {
-            Object.Destroy(gameObject);
+            Object.Destroy(this);
         }
         
         private void PlayWalkingSound()
