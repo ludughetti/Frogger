@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Utils
 {
-    public class InputHandler : MonoBehaviour
+    public class InputHandler : MonoBehaviour, IInputHandler
     {
         private InputActions _inputActions;
 
-        public Action<Vector2> OnMove;
+        public event Action<Vector2> OnMove;
 
         private void Awake()
         {

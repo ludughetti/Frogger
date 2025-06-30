@@ -7,14 +7,14 @@ namespace Player
     public class PlayerPresenter
     {
         private PlayerModel _model;
-        private PlayerView _view;
+        private IPlayerView _view;
         private float _moveSpeed;
 
         private Vector2 _currentDirection = Vector2.zero;
 
         public Action<float> OnPlayerMoved;
 
-        public PlayerPresenter(PlayerModel model, PlayerView playerView, InputHandler inputHandler, float moveSpeed)
+        public PlayerPresenter(PlayerModel model, IPlayerView playerView, IInputHandler inputHandler, float moveSpeed)
         {
             _model = model;
             _view = playerView;
@@ -25,14 +25,15 @@ namespace Player
         }
         
         // Cleanup if presenter gets disposed:
-        public void Dispose(InputHandler inputHandler)
+        public void Dispose(IInputHandler inputHandler)
         {
             inputHandler.OnMove -= OnMove;
+            _view.Destroy();
         }
 
-        public void Update()
+        public void Update(float deltaTime)
         {
-            UpdateMovement();
+            UpdateMovement(deltaTime);
         }
 
         public void SetSpawnPosition(Vector2 spawnPosition)
@@ -56,13 +57,13 @@ namespace Player
             _view.SetAnimationValues(_currentDirection, _currentDirection != Vector2.zero);
             
             // Update SFX
-            _view.HandlePlayerWalkSFX(_currentDirection != Vector2.zero);
+            _view.HandlePlayerWalkSfx(_currentDirection != Vector2.zero);
         }
         
-        private void UpdateMovement()
+        private void UpdateMovement(float deltaTime)
         {
             // Calculate next position 
-            var movement = _currentDirection * (_moveSpeed * Time.deltaTime);
+            var movement = _currentDirection * (_moveSpeed * deltaTime);
             var currentPosition = _model.Position;
             var nextPosition = currentPosition + movement;
             

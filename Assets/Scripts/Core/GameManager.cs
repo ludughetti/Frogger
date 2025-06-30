@@ -81,11 +81,12 @@ namespace Core
 
         private void Update()
         {
-            _timerPresenter.Update(Time.deltaTime);
-            _playerPresenter.Update();
+            var deltaTime = Time.deltaTime;
+            _timerPresenter.Update(deltaTime);
+            _playerPresenter.Update(deltaTime);
             
             foreach (var carSpawnerPresenter in _carSpawnerPresenters)
-                carSpawnerPresenter.Update(Time.deltaTime);
+                carSpawnerPresenter.Update(deltaTime);
         }
 
         private void OnDestroy()

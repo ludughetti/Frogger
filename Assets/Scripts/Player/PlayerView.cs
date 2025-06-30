@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 namespace Player
 {
-    public class PlayerView : MonoBehaviour
+    public class PlayerView : MonoBehaviour, IPlayerView
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Animator animator;
@@ -30,13 +30,18 @@ namespace Player
         {
             transform.position = position;
         }
-
-        public void HandlePlayerWalkSFX(bool isMoving)
+        
+        public void HandlePlayerWalkSfx(bool isMoving)
         {
             if (isMoving)
                 PlayWalkingSound();
             else
                 StopWalkingSound();
+        }
+        
+        public void Destroy()
+        {
+            Object.Destroy(gameObject);
         }
         
         private void PlayWalkingSound()
