@@ -11,7 +11,7 @@ namespace Cars.Spawner
         public float SpawnRate { get; private set; }
         public float Speed { get; private set; }
 
-        public CarSpawnerModel(CarSpawnerData spawnerData, Transform spawnContainer, 
+        public CarSpawnerModel(ICarSpawnerData spawnerData, Transform spawnContainer, 
             Vector2 spawnPosition, Vector2 moveDirection)
         {
             CarPrefab = spawnerData.Prefab;

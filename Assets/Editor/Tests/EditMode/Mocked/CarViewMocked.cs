@@ -18,6 +18,11 @@ namespace Editor.Tests.EditMode.Mocked
             UpdatePositionCalled = true;
             LastPosition = position;
         }
+        
+        public void ResetFlags()
+        {
+            UpdatePositionCalled = false;
+        }
 
         public void Destroy()
         {

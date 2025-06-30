@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Cars.Spawner
 {
-    public class CarSpawnerData : MonoBehaviour
+    public class CarSpawnerData : MonoBehaviour, ICarSpawnerData
     {
         [SerializeField] private GameObject prefab;
         [SerializeField] private float spawnRate;

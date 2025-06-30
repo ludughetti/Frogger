@@ -7,7 +7,7 @@ namespace Cars.Spawner
         [SerializeField] private CarSpawnerData spawnerData;
         [SerializeField] private Transform spawnContainer;
         
-        public CarSpawnerData SpawnerData => spawnerData;
+        public ICarSpawnerData SpawnerData => spawnerData;
         public Transform SpawnContainer => spawnContainer;
     }
 }
