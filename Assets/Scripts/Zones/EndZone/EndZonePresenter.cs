@@ -5,11 +5,11 @@ namespace Zones.EndZone
 {
     public class EndZonePresenter
     {
-        private EndZoneView _view;
+        private IEndZoneView _view;
 
         public Action OnPlayerEntered;
         
-        public EndZonePresenter(EndZoneView view)
+        public EndZonePresenter(IEndZoneView view)
         {
             _view = view;
             _view.OnPlayerEntered += HandlePlayerEntered;

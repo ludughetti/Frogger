@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Zones.EndZone
 {
-    public class EndZoneView : MonoBehaviour
+    public class EndZoneView : MonoBehaviour, IEndZoneView
     {
         public event Action OnPlayerEntered;
         
