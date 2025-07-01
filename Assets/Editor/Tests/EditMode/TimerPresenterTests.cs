@@ -1,3 +1,4 @@
+using Editor.Tests.EditMode.Mocked;
 using NUnit.Framework;
 using Timer;
 
@@ -54,16 +55,6 @@ namespace Editor.Tests.EditMode
 
             Assert.AreEqual(10f, _model.RemainingTime);
             Assert.AreEqual(10f, _view.LastTimeUpdated);
-        }
-    }
-
-    public class TimerViewMocked : ITimerView
-    {
-        public float LastTimeUpdated { get; private set; }
-
-        public void UpdateUI(float remainingTime)
-        {
-            LastTimeUpdated = remainingTime;
         }
     }
 }

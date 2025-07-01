@@ -5,9 +5,9 @@ namespace Player
 {
     public class PlayerView : MonoBehaviour, IPlayerView
     {
-        [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Animator animator;
-        [SerializeField] private AudioSource walkingAudioSource;
+        [SerializeField] protected SpriteRenderer spriteRenderer;
+        [SerializeField] protected Animator animator;
+        [SerializeField] protected AudioSource walkingAudioSource;
 
         public void SetAnimationValues(Vector2 direction, bool isMoving)
         {

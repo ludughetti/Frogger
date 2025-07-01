@@ -24,7 +24,7 @@ namespace Cars.Spawner
             _spawnTimer = _model.SpawnRate;
         }
 
-        public void Update(float deltaTime)
+        public virtual void Update(float deltaTime)
         {
             // Update timer and move active cars
             _spawnTimer -= deltaTime;

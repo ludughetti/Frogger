@@ -1,7 +1,24 @@
 {
     "name": "PlayMode",
-    "optionalUnityReferences": [
-        "TestAssemblies"
+    "rootNamespace": "",
+    "references": [
+        "GUID:7e7da70bcc3ea5742a0c6114b182dabc",
+        "GUID:85669b3d40b6b72409d827ec785c95cc",
+        "GUID:27619889b8ba8c24980f49ee34dbb44a",
+        "GUID:0acc523941302664db1f4e527237feb3",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
-    "references":[ "GUID:7e7da70bcc3ea5742a0c6114b182dabc" ]
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -31,7 +31,7 @@ namespace Player
             _view.Destroy();
         }
 
-        public void Update(float deltaTime)
+        public virtual void Update(float deltaTime)
         {
             UpdateMovement(deltaTime);
         }

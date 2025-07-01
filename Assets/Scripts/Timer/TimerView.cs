@@ -5,7 +5,7 @@ namespace Timer
 {
     public class TimerView : MonoBehaviour, ITimerView
     {
-        [SerializeField] private TMP_Text timerText;
+        [SerializeField] protected TMP_Text timerText;
         
         // Prints the result in a mm:ss format
         public void UpdateUI(float remainingTime)

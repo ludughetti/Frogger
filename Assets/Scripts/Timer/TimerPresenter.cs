@@ -18,7 +18,7 @@ namespace Timer
             _view.UpdateUI(_model.RemainingTime);
         }
 
-        public void Update(float deltaTime)
+        public virtual void Update(float deltaTime)
         {
             // If timer is not running (e.g. paused), then early return
             if (!_model.IsRunning) 
